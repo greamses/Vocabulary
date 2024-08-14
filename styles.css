@@ -1,0 +1,75 @@
+/* Landing Page Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.top{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #f7f9fc;
+  padding: 20px;
+}
+
+.logo {
+  width: 300px; 
+  aspect-ratio: 16/9;;
+  object-fit: cover;
+}
+
+
+.landing-container {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 5px solid #4dd0e1;
+}
+
+.landing-container h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-button {
+  background-color: #4dd0e1;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 20px;
+  font-size: 1.2em;
+  transition: background-color 0.3s;
+}
+
+.category-button:hover {
+  background-color: #26c6da;
+}
+
+.category-button:active {
+  transform: scale(0.95);
+}

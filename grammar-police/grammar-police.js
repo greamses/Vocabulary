@@ -1,9 +1,5 @@
 const OPTIONS = ['there', 'their', "they're"];
 
-// Each passage has 3 blanks.
-// `correct`  = the right homophone for that gap.
-// `displayed` = the wrong homophone shown at the start (must differ from correct,
-//               and all three displayed values within a passage are distinct).
 const passages = [
   {
     template: "The students forgot {0} pencils at home. I heard {1} going to borrow some. Please put the extras over {2}.",
@@ -59,31 +55,74 @@ function pickPassage() {
   return passages[idx];
 }
 
+function closeAllDropdowns() {
+  document.querySelectorAll('.word-dropdown.open').forEach(d => d.classList.remove('open'));
+}
+
+function createDropdown(idx, displayed) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'word-dropdown';
+  wrapper.dataset.index = idx;
+  wrapper.dataset.value = displayed;
+
+  const trigger = document.createElement('button');
+  trigger.className = 'dropdown-trigger';
+  trigger.type = 'button';
+
+  const label = document.createElement('span');
+  label.className = 'dropdown-label';
+  label.textContent = displayed;
+
+  const arrow = document.createElement('span');
+  arrow.className = 'dropdown-arrow';
+  arrow.textContent = '▾';
+
+  trigger.appendChild(label);
+  trigger.appendChild(arrow);
+
+  const menu = document.createElement('ul');
+  menu.className = 'dropdown-menu';
+
+  OPTIONS.forEach(opt => {
+    const li = document.createElement('li');
+    li.textContent = opt;
+    li.dataset.value = opt;
+    if (opt === displayed) li.classList.add('selected');
+
+    li.addEventListener('click', e => {
+      e.stopPropagation();
+      wrapper.dataset.value = opt;
+      label.textContent = opt;
+      menu.querySelectorAll('li').forEach(item => item.classList.remove('selected'));
+      li.classList.add('selected');
+      wrapper.classList.remove('open');
+    });
+
+    menu.appendChild(li);
+  });
+
+  trigger.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = wrapper.classList.contains('open');
+    closeAllDropdowns();
+    if (!isOpen) wrapper.classList.add('open');
+  });
+
+  wrapper.appendChild(trigger);
+  wrapper.appendChild(menu);
+  return wrapper;
+}
+
 function renderPassage(passage) {
   const passageEl = document.getElementById('passage');
   passageEl.innerHTML = '';
 
-  // Split template on {0}, {1}, {2} markers
   const parts = passage.template.split(/\{(\d+)\}/);
 
   parts.forEach(part => {
     if (/^\d+$/.test(part)) {
       const idx = parseInt(part);
-      const blank = passage.blanks[idx];
-
-      const select = document.createElement('select');
-      select.className = 'word-select';
-      select.dataset.index = idx;
-
-      OPTIONS.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt;
-        option.textContent = opt;
-        if (opt === blank.displayed) option.selected = true;
-        select.appendChild(option);
-      });
-
-      passageEl.appendChild(select);
+      passageEl.appendChild(createDropdown(idx, passage.blanks[idx].displayed));
     } else {
       passageEl.appendChild(document.createTextNode(part));
     }
@@ -91,16 +130,17 @@ function renderPassage(passage) {
 }
 
 function submit() {
-  const selects = document.querySelectorAll('.word-select');
+  closeAllDropdowns();
+
+  const dropdowns = document.querySelectorAll('.word-dropdown');
   let score = 0;
 
-  selects.forEach(select => {
-    const idx = parseInt(select.dataset.index);
+  dropdowns.forEach(dropdown => {
+    const idx = parseInt(dropdown.dataset.index);
     const correct = currentPassage.blanks[idx].correct;
-    const isCorrect = select.value === correct;
+    const isCorrect = dropdown.dataset.value === correct;
 
-    select.disabled = true;
-    select.classList.add(isCorrect ? 'correct' : 'incorrect');
+    dropdown.classList.add(isCorrect ? 'correct' : 'incorrect');
     if (isCorrect) score++;
   });
 
@@ -111,9 +151,7 @@ function submit() {
     "Perfect score — you are the Grammar Police!"
   ];
 
-  const scoreText = document.getElementById('scoreText');
-  scoreText.textContent = `${score} / 3 — ${messages[score]}`;
-
+  document.getElementById('scoreText').textContent = `${score} / 3 — ${messages[score]}`;
   document.getElementById('submitBtn').hidden = true;
   document.getElementById('result').hidden = false;
 }
@@ -125,6 +163,7 @@ function startGame() {
   document.getElementById('submitBtn').hidden = false;
 }
 
+document.addEventListener('click', closeAllDropdowns);
 document.getElementById('submitBtn').addEventListener('click', submit);
 document.getElementById('retryBtn').addEventListener('click', startGame);
 

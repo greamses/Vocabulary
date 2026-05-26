@@ -73,3 +73,11 @@ body {
 .category-button:active {
   transform: scale(0.95);
 }
+
+.grammar-btn {
+  background-color: #ff7043;
+}
+
+.grammar-btn:hover {
+  background-color: #f4511e;
+}

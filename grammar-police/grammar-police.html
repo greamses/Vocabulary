@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar Police</title>
+  <link rel="stylesheet" href="grammar-police.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="top">
+    <a href="../index.html">
+      <img src="../logo.png" alt="Logo" class="logo">
+    </a>
+  </div>
+
+  <div class="grammar-container">
+    <div class="badge">Grammar Police</div>
+    <p class="instructions">
+      Each highlighted word is the <strong>wrong</strong> homophone.
+      Click the dropdown and pick the correct one for each gap, then hit <strong>Submit</strong>!
+    </p>
+
+    <div class="passage" id="passage"></div>
+
+    <div class="actions">
+      <button class="submit-btn" id="submitBtn">Submit</button>
+    </div>
+
+    <div class="result" id="result" hidden>
+      <p class="score-text" id="scoreText"></p>
+      <button class="retry-btn" id="retryBtn">Try Another</button>
+    </div>
+  </div>
+
+  <script src="grammar-police.js"></script>
+</body>
+</html>

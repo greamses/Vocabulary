@@ -1,0 +1,250 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+}
+
+/* ── Header ── */
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #f7f9fc;
+  padding: 20px;
+  z-index: 10;
+}
+
+.logo {
+  width: 300px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+/* ── Main card ── */
+.grammar-container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 5px solid #4dd0e1;
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: #4dd0e1;
+  color: #fff;
+  font-size: 1.4em;
+  font-weight: 600;
+  padding: 10px 28px;
+  border-radius: 50px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+
+.instructions {
+  color: #555;
+  font-size: 0.95em;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* ── Passage area ── */
+.passage {
+  background: #f0fbfc;
+  border: 1px solid #b2ebf2;
+  border-radius: 14px;
+  padding: 24px 28px;
+  font-size: 1.1em;
+  line-height: 3;
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+/* ── Custom dropdown wrapper ── */
+.word-dropdown {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin: 0 3px;
+}
+
+/* Trigger button */
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffca28;
+  color: #333;
+  border: 2px solid #f9a825;
+  border-radius: 10px;
+  padding: 4px 10px 4px 12px;
+  font-size: 0.95em;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dropdown-trigger:hover {
+  border-color: #ff7043;
+  box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.15);
+}
+
+.word-dropdown.open .dropdown-trigger {
+  border-color: #ff7043;
+  box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.15);
+}
+
+.dropdown-arrow {
+  font-size: 0.8em;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.word-dropdown.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  background: #fff;
+  border: 2px solid #f9a825;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 200;
+  list-style: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.word-dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  padding: 9px 16px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.dropdown-menu li:not(:last-child) {
+  border-bottom: 1px solid #fff3cd;
+}
+
+.dropdown-menu li:hover {
+  background: #fff9e6;
+}
+
+.dropdown-menu li.selected {
+  background: #ffca28;
+  color: #333;
+}
+
+/* ── Post-submit states ── */
+.word-dropdown.correct .dropdown-trigger {
+  background: #c8e6c9;
+  border-color: #43a047;
+  color: #1b5e20;
+  cursor: default;
+  pointer-events: none;
+}
+
+.word-dropdown.incorrect .dropdown-trigger {
+  background: #ffcdd2;
+  border-color: #e53935;
+  color: #b71c1c;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Buttons ── */
+.actions {
+  margin-bottom: 16px;
+}
+
+.submit-btn,
+.retry-btn {
+  background-color: #ff7043;
+  color: #fff;
+  border: none;
+  padding: 13px 44px;
+  border-radius: 20px;
+  font-size: 1.1em;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.submit-btn:hover,
+.retry-btn:hover {
+  background-color: #f4511e;
+}
+
+.submit-btn:active,
+.retry-btn:active {
+  transform: scale(0.96);
+}
+
+/* ── Result block ── */
+.result {
+  margin-top: 8px;
+}
+
+.score-text {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #333;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  body {
+    padding-top: 100px;
+  }
+
+  .grammar-container {
+    padding: 24px 16px;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .passage {
+    font-size: 1em;
+    line-height: 3.2;
+    padding: 18px 16px;
+  }
+
+  .badge {
+    font-size: 1.1em;
+  }
+}
